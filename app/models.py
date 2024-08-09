@@ -8,9 +8,13 @@ class Movie(db.Model):
     year: Mapped[str] = mapped_column(nullable=False)
     description: Mapped[str] = mapped_column(nullable=False)
     rating: Mapped[float] = mapped_column(nullable=False)
-    ranking: Mapped[float] = mapped_column(nullable=False)
+    ranking: Mapped[int] = mapped_column(nullable=False)
     review: Mapped[str] = mapped_column(nullable=False)
     img_url: Mapped[str] = mapped_column(nullable=False)
+
+    def __repr__(self):
+        return '<Movie {}>'.format(self.title)
+
 
 # Create table schema in db. Requires app context
 with app.app_context():
@@ -19,3 +23,4 @@ with app.app_context():
 def validate_title(title):
     check = db.session.execute(db.select(Movie).filter_by(title=title)).first()
     return check
+
