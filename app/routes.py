@@ -21,9 +21,9 @@ def home():
 
 @app.route("/edit", methods=["GET", "POST"])
 def edit():
-    form = RateMovieForm()
     movie_id = request.args.get("id")
     movie = db.get_or_404(Movie, movie_id)
+    form = RateMovieForm(obj=movie)
 
     if form.validate_on_submit():
         movie.rating = float(form.rating.data)
