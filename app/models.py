@@ -1,12 +1,21 @@
 from sqlalchemy.orm import Mapped, mapped_column
 from app import app, db
 
+
 class Movie(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(unique=True, nullable=False)
     year: Mapped[str] = mapped_column(nullable=False)
+    description: Mapped[str] = mapped_column(nullable=False)
     rating: Mapped[float] = mapped_column(nullable=False)
+    ranking: Mapped[float] = mapped_column(nullable=False)
+    review: Mapped[str] = mapped_column(nullable=False)
+    img_url: Mapped[str] = mapped_column(nullable=False)
+
+# Create table schema in db. Requires app context
+with app.app_context():
+    db.create_all()
 
 def validate_title(title):
-    check = db.session.execute(db.select(Book).filter_by(title=title)).first()
+    check = db.session.execute(db.select(Movie).filter_by(title=title)).first()
     return check
