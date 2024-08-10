@@ -7,10 +7,16 @@
     <h1 class="heading">Select Movie</h1>
 
   <p>
-      {% for movie in results %}
-    <a href="#"> {{ movie.title }} - {{ movie.release_date }}</a><br>
-      {% endfor %}
+
   </p>
 
+</div>
+
+<div class="container">
+    <ul>
+        {% for movie in results %}
+        <li><a href="#"> {{ movie.title }} - {{ movie.release_date }}</a></li>
+        {% endfor %}
+    </ul>
 </div>
 {% endblock %}

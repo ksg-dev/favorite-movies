@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from app import app, db
 from app.forms import RateMovieForm, AddMovie
 from app.models import Movie, validate_title
-from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap5
 from movie import GetMovie
 
@@ -40,7 +39,6 @@ def add():
     if request.method == "POST":
         if form.validate_on_submit():
             title = form.title.data.title()
-            print(title)
 
             # Call on API with title
             search = GetMovie(title)
@@ -55,10 +53,7 @@ def add():
 
             return render_template("select.html", results=movie_list)
 
-        # print(search.movie_details)
-
     return render_template("add.html", form=form)
-
 
 
 @app.route("/delete")
