@@ -1,8 +1,13 @@
+from sqlalchemy.orm import DeclarativeBase
 import os
 from dotenv import load_dotenv
-from sqlalchemy.orm import DeclarativeBase
+import requests
 
 load_dotenv()
+
+API_KEY = os.environ["MOVIE_API_KEY"]
+TOKEN = os.environ["MOVIE_API_READ_TOKEN"]
+GET_URL = "https://api.themoviedb.org/3/search/movie"
 
 
 class Config:
@@ -12,3 +17,5 @@ class Config:
 
 class Base(DeclarativeBase):
     pass
+
+

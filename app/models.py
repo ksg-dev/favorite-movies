@@ -5,7 +5,7 @@ from app import app, db
 class Movie(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(unique=True, nullable=False)
-    year: Mapped[str] = mapped_column(nullable=False)
+    year: Mapped[int] = mapped_column(nullable=False)
     description: Mapped[str] = mapped_column(nullable=False)
     rating: Mapped[float] = mapped_column(nullable=False)
     ranking: Mapped[int] = mapped_column(nullable=False)

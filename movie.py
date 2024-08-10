@@ -32,7 +32,13 @@ class GetMovie:
         response.raise_for_status()
         data = response.json()
         movie_data = data["results"]
-        print(movie_data)
+
+        movie_list = []
+
+        for movie in movie_data:
+            movie_list.append(movie)
+
+        return movie_list
 
 
 
