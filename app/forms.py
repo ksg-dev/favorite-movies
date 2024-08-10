@@ -15,3 +15,10 @@ class RateMovieForm(FlaskForm):
                              InputRequired()
                          ])
     submit = SubmitField("Update Movie")
+
+class AddMovie(FlaskForm):
+    title = StringField('Title',
+                        validators=[
+                            InputRequired()
+                        ])
+    submit = SubmitField("Add Movie")

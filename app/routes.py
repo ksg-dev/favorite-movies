@@ -31,3 +31,16 @@ def edit():
         db.session.commit()
         return redirect(url_for("home"))
     return render_template("edit.html", movie=movie, form=form)
+
+
+@app.route("/delete")
+def delete():
+    movie_id = request.args.get("id")
+    movie = db.get_or_404(Movie, movie_id)
+
+    db.session.delete(movie)
+    db.session.commit()
+
+    flash("Record Deleted")
+
+    return redirect(url_for("home"))
