@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from app import app, db
-from app.forms import RateMovieForm
+from app.forms import RateMovieForm, AddMovie
 from app.models import Movie, validate_title
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap5
@@ -31,6 +31,16 @@ def edit():
         db.session.commit()
         return redirect(url_for("home"))
     return render_template("edit.html", movie=movie, form=form)
+
+
+@app.route("/add", methods=["GET", "POST"])
+def add():
+    form = AddMovie()
+    if form.validate_on_submit():
+        title = form.title.data.title()
+
+    return render_template("add.html", form=form)
+
 
 
 @app.route("/delete")
