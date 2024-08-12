@@ -26,11 +26,6 @@ def rank_movies():
 def home():
     top_movies = rank_movies()[:10]
 
-    # rank_movies = db.session.execute(db.select(Movie).order_by(Movie.rating)).scalars()
-    # for movie in rank_movies:
-    #     top_movies.append(movie)
-
-
     return render_template('index.html', library=top_movies)
 
 
