@@ -8,15 +8,31 @@ from app.movie import GetMovie, get_details
 bootstrap = Bootstrap5(app)
 
 
+def rank_movies():
+    top_movies = []
+    ranked = db.session.execute(db.select(Movie).order_by(Movie.rating)).scalars()
+
+    start = 1
+    for movie in ranked:
+        movie = db.get_or_404(Movie, movie.id)
+        movie.ranking = start
+        db.session.commit()
+        top_movies.append(movie)
+        start += 1
+    return top_movies
+
+
 @app.route('/', methods=["GET", "POST"])
 def home():
-    query = request.args.get("q")
+    top_movies = rank_movies()
 
-    if query is not None:
-        return redirect(url_for('search', terms=query))
+    # rank_movies = db.session.execute(db.select(Movie).order_by(Movie.rating)).scalars()
+    # for movie in rank_movies:
+    #     top_movies.append(movie)
 
-    else:
-        return render_template('index.html', library=Movie.query.all(), query=None)
+
+
+    return render_template('index.html', library=top_movies)
 
 
 @app.route("/edit", methods=["GET", "POST"])
