@@ -7,9 +7,9 @@ class Movie(db.Model):
     title: Mapped[str] = mapped_column(unique=True, nullable=False)
     year: Mapped[int] = mapped_column(nullable=False)
     description: Mapped[str] = mapped_column(nullable=False)
-    rating: Mapped[float] = mapped_column(nullable=False)
-    ranking: Mapped[int] = mapped_column(nullable=False)
-    review: Mapped[str] = mapped_column(nullable=False)
+    rating: Mapped[float] = mapped_column(nullable=True)
+    ranking: Mapped[int] = mapped_column(nullable=True)
+    review: Mapped[str] = mapped_column(nullable=True)
     img_url: Mapped[str] = mapped_column(nullable=False)
 
     def __repr__(self):

@@ -64,19 +64,13 @@ def get_movie_details():
         title=data["title"],
         year=data["year"],
         description=data["description"],
-        rating=0.0,
-        ranking=0,
-        review="My Review",
         img_url=data["img_url"]
     )
 
-    with app.app_context():
-        db.session.add(new_movie)
-        db.session.commit()
+    db.session.add(new_movie)
+    db.session.commit()
 
-    return redirect(url_for("home"))
-
-
+    return redirect(url_for("edit", id=new_movie.id))
 
 
 @app.route("/delete")
