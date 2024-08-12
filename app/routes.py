@@ -10,26 +10,25 @@ bootstrap = Bootstrap5(app)
 
 def rank_movies():
     top_movies = []
-    ranked = db.session.execute(db.select(Movie).order_by(Movie.rating)).scalars()
+    ranked = db.session.execute(db.select(Movie).order_by(Movie.rating)).scalars().yield_per(10)
 
-    start = 1
+    start = 10
     for movie in ranked:
         movie = db.get_or_404(Movie, movie.id)
         movie.ranking = start
         db.session.commit()
         top_movies.append(movie)
-        start += 1
+        start -= 1
     return top_movies
 
 
 @app.route('/', methods=["GET", "POST"])
 def home():
-    top_movies = rank_movies()
+    top_movies = rank_movies()[:10]
 
     # rank_movies = db.session.execute(db.select(Movie).order_by(Movie.rating)).scalars()
     # for movie in rank_movies:
     #     top_movies.append(movie)
-
 
 
     return render_template('index.html', library=top_movies)
