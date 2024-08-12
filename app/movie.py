@@ -54,7 +54,7 @@ def get_details(movie_api_id):
     response.raise_for_status()
     data = response.json()
     title = data['title']
-    img_url = data['poster_path']
+    img_url = f"https://image.tmdb.org/t/p/w500{data['poster_path']}"
     year = data['release_date'].split('-')[0]
     description = data['overview']
 

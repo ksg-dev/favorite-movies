@@ -56,9 +56,25 @@ def add():
     return render_template("add.html", form=form)
 
 
-def get_movie_details(movie_api_id):
-    data = get_details(movie_api_id)
+@app.route("/find")
+def get_movie_details():
+    data = get_details(request.args.get("id"))
 
+    new_movie = Movie(
+        title=data["title"],
+        year=data["year"],
+        description=data["description"],
+        rating=0.0,
+        ranking=0,
+        review="My Review",
+        img_url=data["img_url"]
+    )
+
+    with app.app_context():
+        db.session.add(new_movie)
+        db.session.commit()
+
+    return redirect(url_for("home"))
 
 
 

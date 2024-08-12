@@ -15,7 +15,7 @@
 <div class="container">
     <ul>
         {% for movie in results %}
-        <li><a href="#"> {{ movie.title }} - {{ movie.release_date }}</a></li>
+        <li><a href="{{ url_for('get_movie_details', id=movie.id) }}"> {{ movie.title }} - {{ movie.release_date }}</a></li>
         {% endfor %}
     </ul>
 </div>
