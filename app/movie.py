@@ -8,6 +8,7 @@ load_dotenv()
 API_KEY = os.environ["MOVIE_API_KEY"]
 TOKEN = os.environ["MOVIE_API_READ_TOKEN"]
 GET_URL = "https://api.themoviedb.org/3/search/movie"
+DETAILS_URL = "https://api.themoviedb.org/3/movie"
 
 
 class GetMovie:
@@ -41,7 +42,31 @@ class GetMovie:
         return movie_list
 
 
+def get_details(movie_api_id):
+    headers = {
+        "accept": "application/json",
+        "Authorization": f"Bearer {TOKEN}"
+    }
 
-movie = GetMovie("Matrix")
-print(movie)
+    query_str = f"{DETAILS_URL}/{movie_api_id}"
+
+    response = requests.get(query_str, headers=headers)
+    response.raise_for_status()
+    data = response.json()
+    title = data['title']
+    img_url = data['poster_path']
+    year = data['release_date'].split('-')[0]
+    description = data['overview']
+
+    movie_details = {
+        "title": title,
+        "img_url": img_url,
+        "year": year,
+        "description": description
+    }
+
+    return movie_details
+
+
+
 

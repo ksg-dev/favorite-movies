@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash
 from app import app, db
 from app.forms import RateMovieForm, AddMovie
-from app.models import Movie, validate_title
+from app.models import Movie
 from flask_bootstrap import Bootstrap5
-from movie import GetMovie
+from app.movie import GetMovie, get_details
 
 bootstrap = Bootstrap5(app)
 
@@ -54,6 +54,13 @@ def add():
             return render_template("select.html", results=movie_list)
 
     return render_template("add.html", form=form)
+
+
+def get_movie_details(movie_api_id):
+    data = get_details(movie_api_id)
+
+
+
 
 
 @app.route("/delete")
